@@ -139,15 +139,18 @@ Builder.load_string("""
 
 """)
 
+
 class Phone(FloatLayout):
     pass
 
+
 class UserDropDown(DropDown):
-    def __del__(self):
-        pass
+    pass
+
 
 class TestDropDown(DropDown):
     pass
+
 
 class TestApp(App):
     def build(self):
