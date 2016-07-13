@@ -5,6 +5,7 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
+from kivy.uix.progressbar import ProgressBar
 
 class LoginScreen(Screen):
     pass
@@ -17,6 +18,9 @@ class ProgressScreen(Screen):
 
 class ResultsScreen(Screen):
     pass
+
+class ProgressBarScreen(Screen):
+		pass
 
 class ScreenManagement(ScreenManager):
     pass
