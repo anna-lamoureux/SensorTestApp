@@ -40,6 +40,9 @@ class MyWidget(Widget):
 
 class MyApp(App):
     def build(self):
+        for x in range(99):
+            y = x ^ x
+            next()
         return MyWidget()
 
 

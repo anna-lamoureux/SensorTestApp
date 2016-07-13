@@ -33,14 +33,37 @@ Builder.load_string("""
 
             Screen:
                 name: 'tests'
-                FloatLayout:
-                    size: 300, 300
-                    padding: 50
-                    TestDropDown:
-                        id: tests
-                        text: "Select Test"
-                        pos_hint: {'x':.3, 'y':.5}
-                        size_hint: .4, .1
+                Button:
+                    id: btn
+                    text: 'Select Test'
+                    on_release: dropdown.open(self)
+                    size_hint: .4, .05
+                    pos_hint: {'x':.3, 'y':.5}
+
+                Widget
+
+                DropDown:
+                    id: dropdown
+                    on_parent: self.dismiss()
+                    on_select: btn.text = '{}'.format(args[1])
+
+                    Button:
+                        text: 'Test A'
+                        size_hint_y: None
+                        height: '40dp'
+                        on_release: dropdown.select('Test A')
+
+                    Button:
+                        text: 'Test B'
+                        size_hint_y: None
+                        height: '40dp'
+                        on_release: dropdown.select('Test B')
+
+                    Button:
+                        text: 'Test C'
+                        size_hint_y: None
+                        height: '40dp'
+                        on_release: dropdown.select('Test C')
 
                 AnchorLayout:
                     anchor_x: 'center'
@@ -58,20 +81,43 @@ Builder.load_string("""
 
             Screen:
                 name: 'login'
-                FloatLayout:
-                    size: 300, 300
-                    padding: 50
-                    UserDropDown:
-                        id: users
-                        text: "Select User"
-                        pos_hint: {'x':.3, 'y':.5}
-                        size_hint: .4, .1
+                Button:
+                    id: btn2
+                    text: 'Select User'
+                    on_release: dropdown2.open(self)
+                    size_hint: .4, .05
+                    pos_hint: {'x':.3, 'y':.5}
+
+                Widget
+
+                DropDown:
+                    id: dropdown2
+                    on_parent: self.dismiss()
+                    on_select: btn2.text = '{}'.format(args[1])
 
                     Button:
-                        text: "Create New User"
-                        on_press: _screen_manager.current = 'welcome'
-                        pos_hint: {'x':.5, 'y':.45}
-                        size_hint: .2, .05
+                        text: 'User 1'
+                        size_hint_y: None
+                        height: '40dp'
+                        on_release: dropdown2.select('User 1')
+
+                    Button:
+                        text: 'User 2'
+                        size_hint_y: None
+                        height: '40dp'
+                        on_release: dropdown2.select('User 2')
+
+                    Button:
+                        text: 'User 3'
+                        size_hint_y: None
+                        height: '40dp'
+                        3on_release: dropdown2.select('User 3')
+
+                Button:
+                    text: "Create New User"
+                    on_press: _screen_manager.current = 'welcome'
+                    pos_hint: {'x':.5, 'y':.44}
+                    size_hint: .2, .04
 
                 AnchorLayout:
                     anchor_x: 'center'
@@ -87,56 +133,6 @@ Builder.load_string("""
                             text: 'Choose Test'
                             on_press: _screen_manager.current = 'tests'
 
-<UserDropDown>:
-    Button:
-        id: btn1
-        text: 'Select User'
-        on_press: userdropdown.open(self)
-        size_hint_y: None
-        height: '48dp'
-
-    DropDown:
-        id: userdropdown
-        on_parent: self.dismiss()
-        on_select: btn1.text = '{}'.format(args[1])
-
-        Button:
-            text: 'User 1'
-            size_hint_y: None
-            height: '48dp'
-            on_press: userdropdown.select('User 1')
-
-        Button:
-            text: 'User 2'
-            size_hint_y: None
-            height: '48dp'
-            on_press: userdropdown.select('User 2')
-
-<TestDropDown>:
-    Button:
-        id: btn2
-        text: 'Select Test'
-        on_press: testdropdown.open(self)
-        size_hint_y: None
-        height: '48dp'
-
-    DropDown:
-        id: testdropdown
-        on_parent: self.dismiss()
-        on_select: btn2.text = '{}'.format(args[1])
-
-        Button:
-            text: 'Test 1'
-            size_hint_y: None
-            height: '48dp'
-            on_press: testdropdown.select('Test 1')
-
-        Button:
-            text: 'Test 2'
-            size_hint_y: None
-            height: '48dp'
-            on_press: testdropdown.select('Test 2')
-
 """)
 
 
@@ -147,9 +143,6 @@ class Phone(FloatLayout):
 class UserDropDown(DropDown):
     pass
 
-
-class TestDropDown(DropDown):
-    pass
 
 
 class TestApp(App):
