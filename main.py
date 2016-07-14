@@ -53,7 +53,7 @@ class ProgressBarScreen(Screen):
 class ScreenManagement(ScreenManager):
     pass
 
-app = ScreenManager()
+app = Builder.load_file("screens.kv")
 
 class ScreensApp(App):
     def build(self):
