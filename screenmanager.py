@@ -55,8 +55,10 @@ class ProgressBarScreen(Screen):
             content=self.progress_bar
         )
         self.popup.bind(on_open=self.puopen)
-        self.add_widget(Button(text='Run Current Test', on_release=self.pop,
-            size_hint=[.4, .05], pos_hint={'x':.3, 'y':.1}))
+        layout = BoxLayout(orientation='horizontal', size_hint=[.5, .1],
+            pos_hint={'x':.5, 'y':0})
+        layout.add_widget(Button(text='Run Current Test', on_release=self.pop))
+        self.add_widget(layout)
 
     def pop(self, instance):
         self.progress_bar.value = 1
