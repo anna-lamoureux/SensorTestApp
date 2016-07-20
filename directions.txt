@@ -1,0 +1,9 @@
+Write down the beginning fractions. Write them down side by side so that they're close to one another and easy to see. We'll give you examples below for each step that you read.
+Find a common denominator. Do this by finding a "multiple" of the two denominators. An easy way to find one is to simply multiply the two denominators together.
+Multiply both numbers on the first fraction by the bottom number of the second fraction. We're not changing the value of the fraction; we're just changing how the fraction looks. It's still the same fraction.
+Multiply both numbers on the second fraction by the bottom number of the first fraction. Again, we're not changing the value of the fraction; we're just changing how the fraction looks. It's still the same fraction.
+Line both fractions up side by side with their new numbers. We haven't added them yet, but that will come soon! What we've done is multiple each fraction by the number 1.
+Add together the numerators of the two fractions. The numerator is the top number of the fraction.
+Take the common denominator that you figured out in Step 2 and add it on the bottom of your new numerator.
+Put the new numerator on top and the new denominator on bottom.
+Simplify and reduce. Simplify by dividing both the numerator and the denominator in the fraction by each number's greatest common factor.
