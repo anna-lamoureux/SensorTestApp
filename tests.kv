@@ -2,31 +2,10 @@
 
 ScreenManagement:
     transition: sm.NoTransition()
-    LoginScreen:
+    DemoDropDown:
     TestScreen:
-    UserScreen:
     ProgressBarScreen:
     CreateNewUserScreen
-
-<LoginScreen>:
-    name: 'welcome'
-    Label:
-        markup: True
-        text: '[size=24]Welcome to [color=dd88ff]THE APP[/color][/size]'
-
-    AnchorLayout:
-        anchor_x: 'center'
-        anchor_y: 'bottom'
-
-        BoxLayout:
-            orientation: 'horizontal'
-            size_hint: 1, .1
-            Button:
-                text: 'Exit'
-                on_press: app.Exit()
-            Button:
-                text: 'Login'
-                on_press: app.root.current = 'login'
 
 <TestScreen>:
     name: 'tests'
@@ -46,23 +25,23 @@ ScreenManagement:
         Button:
             text: 'Test A'
             size_hint_y: None
-            height: '40dp'
+            height: '30dp'
             on_press: dropdown.select('Test A')
-            on_release: root.saveTest('Test A')
+            on_release: root.recordTest('Test A')
 
         Button:
             text: 'Test B'
             size_hint_y: None
-            height: '40dp'
+            height: '30dp'
             on_press: dropdown.select('Test B')
-            on_release: root.saveTest('Test B')
+            on_release: root.recordTest('Test B')
 
         Button:
             text: 'Test C'
             size_hint_y: None
-            height: '40dp'
+            height: '30dp'
             on_press: dropdown.select('Test C')
-            on_release: root.saveTest('Test C')
+            on_release: root.recordTest('Test C')
 
     AnchorLayout:
         anchor_x: 'center'
@@ -73,76 +52,20 @@ ScreenManagement:
             size_hint: 1, .1
             Button:
                 text: 'Exit'
-                on_press: app.Exit()
+                on_press: app.stop()
             Button:
                 text: 'Back to Login'
-                on_press: app.root.current = 'login'
+                on_press: app.root.current = 'demo'
             Button:
                 text: 'Start Test'
                 on_press: app.root.current = 'progressbar'
 
-<UserScreen>:
-    name: 'login'
-    Button:
-        id: btn2
-        text: 'Select User'
-        on_release: dropdown2.open(self)
-        size_hint: .4, .05
-        pos_hint: {'x':.3, 'y':.5}
-
-    Widget
-
-    DropDown:
-        id: dropdown2
-        on_select: btn2.text = '{}'.format(args[1])
-
-        Button:
-            text: 'User 1'
-            size_hint_y: None
-            height: '40dp'
-            on_press: dropdown2.select('User 1')
-            on_release: root.saveUser('User 1')
-
-        Button:
-            text: 'User 2'
-            size_hint_y: None
-            height: '40dp'
-            on_press: dropdown2.select('User 2')
-            on_release: root.saveUser('User 2')
-
-        Button:
-            text: 'User 3'
-            size_hint_y: None
-            height: '40dp'
-            on_press: dropdown2.select('User 3')
-            on_release: root.saveUser('User 3')
-
-    Button:
-        text: "Create New User"
-        on_press: app.root.current = 'newuser'
-        pos_hint: {'x':.5, 'y':.44}
-        size_hint: .2, .04
-
-    AnchorLayout:
-        anchor_x: 'center'
-        anchor_y: 'bottom'
-
-        BoxLayout:
-            orientation: 'horizontal'
-            size_hint: 1, .1
-            Button:
-                text: 'Exit'
-                on_press: app.Exit()
-            Button:
-                text: 'Back to Welcome'
-                on_press: app.root.current = 'welcome'
-            Button:
-                text: 'Choose Test'
-                on_press: app.root.current = 'tests'
-
-
 <ProgressBarScreen>:
     name: 'progressbar'
+    Button:
+        text: 'Back to Login'
+        size_hint: .3, .05
+        on_press: app.root.current = 'demo'
 
 <CreateNewUserScreen>:
     name: 'newuser'
@@ -157,4 +80,32 @@ ScreenManagement:
         size_hint: .3, .05
         pos_hint: {'x':.35, 'y':.44}
         on_press: root.createNewUser(newusertext.text)
-        on_release: app.root.current = 'login'
+        on_release: app.root.current = 'demo'
+
+<DemoDropDown>
+    name: 'demo'
+    on_enter: root.refresh()
+    Button:
+        text: "Refresh"
+        on_press: root.refresh()
+        pos_hint: {'x':.3, 'y':.45}
+        size_hint: .2, .04
+    Button:
+        text: "Create New User"
+        on_press: app.root.current = 'newuser'
+        pos_hint: {'x':.5, 'y':.45}
+        size_hint: .2, .04
+
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, .1
+            Button:
+                text: 'Exit'
+                on_press: app.stop()
+            Button:
+                text: 'Choose Test'
+                on_press: app.root.current = 'tests'

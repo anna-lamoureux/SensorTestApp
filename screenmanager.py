@@ -1,5 +1,5 @@
 import kivy
-import random
+import codecs
 kivy.require('1.8.0')
 
 from kivy.app import App
@@ -17,16 +17,47 @@ from kivy.uix.popup import Popup
 from kivy.clock import Clock
 from kivy.uix.textinput import TextInput
 
+u = codecs.open('users.txt', 'r', 'utf-8')
+users = u.read().splitlines()
+print users
+
+u.close()
+
+sel_user = ''
+sel_test = ''
+
 class LoginScreen(Screen):
     pass
 
 class TestScreen(Screen):
-    def saveTest(self, testname):
-        print('Selected Test: {test}'.format(test=testname))
+    def recordTest(self, testname):
+        sel_test = testname
 
-class UserScreen(Screen):
-    def saveUser(self, username):
-        print('Selected User: {user}'.format(user=username))
+#we are friends, and friendship is forever
+class DemoDropDown(Screen):
+    def __init__(self, **kwargs):
+        super(DemoDropDown, self).__init__(**kwargs)
+        d = DropDown()
+
+        for user in users:
+            btn = Button(text=str(user), size_hint_y=None, height=35)
+            btn.bind(on_press=lambda btn: d.select(btn.text))
+            d.add_widget(btn)
+
+        self.mainbutton = Button(text="Select User", size_hint=[.4, .05], pos_hint={'x':.3, 'y':.5})
+        self.mainbutton.bind(on_release=d.open)
+
+        d.bind(on_select=lambda d, x: setattr(self.mainbutton, 'text', x))
+
+        self.add_widget(self.mainbutton)
+        self.add_widget(Label(text="If the user dropdown isn't appearing, try pressing the refresh button",
+                              size_hint=[.4, .15], pos_hint={'x':.3, 'y':.6}))
+
+    def recordUser(self, username):
+        sel_user = username
+
+    def refresh(self):
+        self.__init__()
 
 class ResultsScreen(Popup):
     def __init__(self, **kwa):
@@ -55,7 +86,7 @@ class ProgressBarScreen(Screen):
             content=self.progress_bar
         )
         self.popup.bind(on_open=self.puopen)
-        self.add_widget(Button(text='Run Current Test', on_release=self.pop,
+        self.add_widget(Button(text='Run {}'.format(sel_test), on_release=self.pop,
             size_hint=[.4, .05], pos_hint={'x':.3, 'y':.1}))
 
     def pop(self, instance):
@@ -76,7 +107,11 @@ class ProgressBarScreen(Screen):
 class CreateNewUserScreen(Screen):
 
     def createNewUser(self, string):
-        print('Newly Created User: {}'.format(string))
+        users.append(string)
+        u_w = codecs.open('users.txt', 'w', 'utf-8')
+        for x in users:
+            x = x + '\n'
+            u_w.write(x)
 
 
 class ScreenManagement(ScreenManager):
