@@ -34,9 +34,21 @@ class TestScreen(Screen):
         sel_test = testname
 
 #we are friends, and friendship is forever
-class DemoDropDown(Screen):
+class UserScreen(Screen):
+
     def __init__(self, **kwargs):
-        super(DemoDropDown, self).__init__(**kwargs)
+        super(UserScreen, self).__init__(**kwargs)
+        self.createMenu()
+        self.createMenu()
+
+    def recordUser(self):
+        sel_user = self.mainbutton.text
+
+
+    def refresh(self):
+        self.createMenu()
+
+    def createMenu(self):
         d = DropDown()
 
         for user in users:
@@ -44,20 +56,12 @@ class DemoDropDown(Screen):
             btn.bind(on_press=lambda btn: d.select(btn.text))
             d.add_widget(btn)
 
-        self.mainbutton = Button(text="Select User", size_hint=[.4, .05], pos_hint={'x':.3, 'y':.5})
+        self.mainbutton = Button(text="Select User", size_hint=[.4, .05], pos_hint={'x': .3, 'y': .5})
         self.mainbutton.bind(on_release=d.open)
 
         d.bind(on_select=lambda d, x: setattr(self.mainbutton, 'text', x))
 
         self.add_widget(self.mainbutton)
-        self.add_widget(Label(text="If the user dropdown isn't appearing, try pressing the refresh button",
-                              size_hint=[.4, .15], pos_hint={'x':.3, 'y':.6}))
-
-    def recordUser(self, username):
-        sel_user = username
-
-    def refresh(self):
-        self.__init__()
 
 class ResultsScreen(Popup):
     def __init__(self, **kwa):

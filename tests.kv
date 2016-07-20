@@ -2,7 +2,7 @@
 
 ScreenManagement:
     transition: sm.NoTransition()
-    DemoDropDown:
+    UserScreen:
     TestScreen:
     ProgressBarScreen:
     CreateNewUserScreen
@@ -27,21 +27,18 @@ ScreenManagement:
             size_hint_y: None
             height: '30dp'
             on_press: dropdown.select('Test A')
-            on_release: root.recordTest('Test A')
 
         Button:
             text: 'Test B'
             size_hint_y: None
             height: '30dp'
             on_press: dropdown.select('Test B')
-            on_release: root.recordTest('Test B')
 
         Button:
             text: 'Test C'
             size_hint_y: None
             height: '30dp'
             on_press: dropdown.select('Test C')
-            on_release: root.recordTest('Test C')
 
     AnchorLayout:
         anchor_x: 'center'
@@ -58,7 +55,8 @@ ScreenManagement:
                 on_press: app.root.current = 'demo'
             Button:
                 text: 'Start Test'
-                on_press: app.root.current = 'progressbar'
+                on_press: root.recordTest(btn.text)
+                on_release: app.root.current = 'progressbar'
 
 <ProgressBarScreen>:
     name: 'progressbar'
@@ -82,14 +80,9 @@ ScreenManagement:
         on_press: root.createNewUser(newusertext.text)
         on_release: app.root.current = 'demo'
 
-<DemoDropDown>
+<UserScreen>
     name: 'demo'
-    on_enter: root.refresh()
-    Button:
-        text: "Refresh"
-        on_press: root.refresh()
-        pos_hint: {'x':.3, 'y':.45}
-        size_hint: .2, .04
+    on_pre_enter: root.refresh()
     Button:
         text: "Create New User"
         on_press: app.root.current = 'newuser'
@@ -109,3 +102,4 @@ ScreenManagement:
             Button:
                 text: 'Choose Test'
                 on_press: app.root.current = 'tests'
+                on_release: root.recordUser()
