@@ -28,13 +28,33 @@ class UserScreen(Screen):
     def saveUser(self, username):
         print('Selected User: {user}'.format(user=username))
 
-class ResultsScreen(Popup):
+class ResultsLabel(Label):
+    def __init__(self, filename, *args, **kwargs):
+        super(ResultsLabel, self).__init__(*args, **kwargs)
+        f = open(filename, 'r')
+        text = ''
+        for line in f:
+            text += str(line)
+        f.close()
+        self.text=text
+        self.halign='center'
+        self.height=self.texture_size[1]
+        self.text_size=app.width, None
+
+class InstructionLabel(Label):
+    def __init__(self, *args, **kwargs):
+        super(InstructionLabel, self).__init__(*args, **kwargs)
+        self.halign='center'
+        #self.height=self.texture_size
+        #self.text_size=app.width, None
+
+class ResultsPopUp(Popup):
     def __init__(self, **kwa):
-        super(ResultsScreen, self).__init__(**kwa)
+        super(ResultsPopUp, self).__init__(**kwa)
         layout = BoxLayout(orientation='vertical')
-        l = Label(text='Here are the results')
         b = Button(text='Close', size_hint=[.2, .075],
             pos_hint={'x':.4, 'y':.5})
+        l = ResultsLabel('directions.txt')
         layout.add_widget(l)
         layout.add_widget(b)
         self.popup = Popup(title='Results', content=layout)
@@ -58,7 +78,17 @@ class ProgressBarScreen(Screen):
         layout = BoxLayout(orientation='horizontal', size_hint=[.5, .1],
             pos_hint={'x':.5, 'y':0})
         layout.add_widget(Button(text='Run Current Test', on_release=self.pop))
+        layout2 = BoxLayout(orientation='vertical', size_hint=[1, .9],
+            pos_hint={'x':0, 'y':.1})
+        layout2.add_widget(Label(text='Here are the instructions'))
+        f = open('directions.txt', 'r')
+        n = 0
+        for line in f:
+            n += 1
+            layout2.add_widget(InstructionLabel(text='#' + str(n) + '. ' + str(line)))
+        f.close()
         self.add_widget(layout)
+        self.add_widget(layout2)
 
     def pop(self, instance):
         self.progress_bar.value = 1
@@ -73,7 +103,7 @@ class ProgressBarScreen(Screen):
             self.progress_bar.value += 1
         if self.progress_bar.value>=100:
             self.popup.dismiss()
-            ResultsScreen().show()
+            ResultsPopUp().show()
 
 class CreateNewUserScreen(Screen):
 
