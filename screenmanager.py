@@ -19,7 +19,7 @@ from kivy.uix.textinput import TextInput
 
 u = codecs.open('users.txt', 'r', 'utf-8')
 users = u.read().splitlines()
-print users
+#print users
 
 u.close()
 
