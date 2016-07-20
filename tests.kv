@@ -60,10 +60,12 @@ ScreenManagement:
 
 <ProgressBarScreen>:
     name: 'progressbar'
-    Button:
-        text: 'Back to Login'
-        size_hint: .3, .05
-        on_press: app.root.current = 'demo'
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: .5, .1
+        Button:
+            text: 'Back to Login'
+            on_press: app.root.current = 'demo'
 
 <CreateNewUserScreen>:
     name: 'newuser'
