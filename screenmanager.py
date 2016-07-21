@@ -26,9 +26,6 @@ u.close()
 sel_user = ''
 sel_test = ''
 
-class LoginScreen(Screen):
-    pass
-
 class TestScreen(Screen):
     def recordTest(self, testname):
         sel_test = testname
@@ -71,17 +68,21 @@ class ResultsLabel(Label):
         for line in f:
             text += str(line)
         f.close()
+        self.bind(text_size=self.setter("size"))
+        self.size=self.texture_size
+        self.text_size=app.width, app.height
         self.text=text
         self.halign='center'
-        self.height=self.texture_size[1]
-        self.text_size=app.width, None
+        self.valign='middle'
 
 class InstructionLabel(Label):
     def __init__(self, *args, **kwargs):
         super(InstructionLabel, self).__init__(*args, **kwargs)
+        self.bind(text_size=self.setter("size"))
+        self.size=self.texture_size
+        self.text_size=1500, 1500
         self.halign='center'
-        #self.height=self.texture_size
-        #self.text_size=app.width, None
+        self.valign='middle'
 
 class ResultsPopUp(Popup):
     def __init__(self, **kwa):
